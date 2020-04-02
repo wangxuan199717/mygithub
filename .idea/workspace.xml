@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f574d9de-e379-4d1b-939e-acb6194b44ae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/com/controller/broad controller.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/com/controller/usercontroller" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\Administrator\Desktop\mygithub\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="E:\MavenRep" />
+        <option name="mavenHome" value="C:/Program Files/Java/maven/apache-maven-3.6.2" />
+        <option name="userSettingsFile" value="C:\Users\Administrator\.m2\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Zv6bdBSjWHEfeelEmw3C20m9Ik" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f574d9de-e379-4d1b-939e-acb6194b44ae" name="Default Changelist" comment="" />
+      <created>1585707292137</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585707292137</updated>
+      <workItem from="1585707293383" duration="4909000" />
+      <workItem from="1585808201557" duration="898000" />
+    </task>
+    <task id="LOCAL-00001" summary="idea files">
+      <created>1585707392570</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585707392570</updated>
+    </task>
+    <task id="LOCAL-00002" summary="local branch">
+      <created>1585707696235</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585707696235</updated>
+    </task>
+    <task id="LOCAL-00003" summary="local branch">
+      <created>1585708501724</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585708501724</updated>
+    </task>
+    <task id="LOCAL-00004" summary="local branch">
+      <created>1585710265123</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585710265123</updated>
+    </task>
+    <task id="LOCAL-00005" summary="local branch">
+      <created>1585710529025</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585710529025</updated>
+    </task>
+    <task id="LOCAL-00006" summary="reflash devolop">
+      <created>1585808427045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585808427045</updated>
+    </task>
+    <task id="LOCAL-00007" summary="user controller">
+      <created>1585808554837</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585808554837</updated>
+    </task>
+    <task id="LOCAL-00008" summary="broad controller">
+      <created>1585808622521</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585808622521</updated>
+    </task>
+    <task id="LOCAL-00009" summary="broad controller">
+      <created>1585808853335</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1585808853335</updated>
+    </task>
+    <task id="LOCAL-00010" summary="reflash master">
+      <created>1585808895655</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1585808895655</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="idea files" />
+    <MESSAGE value="local branch" />
+    <MESSAGE value="reflash devolop" />
+    <MESSAGE value="user controller" />
+    <MESSAGE value="broad controller" />
+    <MESSAGE value="reflash master" />
+    <option name="LAST_COMMIT_MESSAGE" value="reflash master" />
+  </component>
+</project>
