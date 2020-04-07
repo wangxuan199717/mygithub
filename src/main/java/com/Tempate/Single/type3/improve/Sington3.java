@@ -1,4 +1,4 @@
-package com.Tempate.Single.type3;
+package com.Tempate.Single.type3.improve;
 
 public class Sington3 {
     public static void main(String[] args) {
@@ -8,11 +8,11 @@ public class Sington3 {
     }
 }
 
-//线程不安全
+//增加线程同步,但是效率低下
 class Sington{
     private static Sington sington;
     private Sington(){}
-    public static Sington getInstance(){
+    public static synchronized Sington getInstance(){
         if(sington==null){
             sington = new Sington();
         }

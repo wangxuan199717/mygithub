@@ -1,4 +1,4 @@
-package com.Tempate.Single.type3;
+package com.Tempate.Single.type3.improve1;
 
 public class Sington3 {
     public static void main(String[] args) {
@@ -8,13 +8,17 @@ public class Sington3 {
     }
 }
 
-//线程不安全
+//双重检查
 class Sington{
     private static Sington sington;
     private Sington(){}
     public static Sington getInstance(){
         if(sington==null){
-            sington = new Sington();
+            synchronized (Sington.class){
+                if(sington == null){
+                    sington = new Sington();
+                }
+            }
         }
         return sington;
     }
