@@ -26,12 +26,12 @@ public class Sheep implements Cloneable{
     }
     @Override
     protected Object clone() {
+        Sheep sheep = null;
         try {
-            Sheep sheep = null;
             sheep = (Sheep) super.clone();
-            return sheep;
         }catch (CloneNotSupportedException e){
             System.out.println(e.getMessage());
         }
+        return sheep;
     }
 }
