@@ -8,9 +8,6 @@ public class VoltageAdapter implements Voltage5V {
     }
     @Override
     public int Output5v() {
-        if(voltage220V != null)
             return voltage220V.getV()/44;
-        else
-            return voltage220V.getV();
     }
 }
