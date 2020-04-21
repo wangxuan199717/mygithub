@@ -6,11 +6,11 @@ public class FoldedPhone extends Phone {
     public FoldedPhone(Brand brand){
         super(brand);
     }
-    public void FoldCall(){
+    public void Call(){
         System.out.println("这是滑盖手机");
         super.Call();
     }
-    public void FoldMessage(){
+    public void Message(){
         System.out.println("这是滑盖手机");
         super.Message();
     }
