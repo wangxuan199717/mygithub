@@ -13,10 +13,14 @@ public class DispatchServlet {
 
     public void doDispath(){
         HttpController httpController = new HttpController();
+        SimpleController simpleController = new SimpleController();
         HandlerAdapter handlerAdapter = getHandler(httpController);
         if(handlerAdapter!=null){
             handlerAdapter.Handler(httpController);
         }
+
+        handlerAdapter = getHandler(simpleController);
+        handlerAdapter.Handler(simpleController);
     }
     public HandlerAdapter getHandler(Controller controller){
         for(HandlerAdapter adapter:handlerAdapters){
