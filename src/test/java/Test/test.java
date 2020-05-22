@@ -8,4 +8,7 @@ public class test {
     public void devolop(){
 
     }
+    public void wang(){
+
+    }
 }
