@@ -3,6 +3,79 @@ package com.leetcode.medium;
 import java.util.*;
 
 public class Medium {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        List<Integer> list = new ArrayList<>();
+        stack.push(root);
+        while(!stack.empty()){
+            if(root!=null){
+                stack.push(root);
+                list.add(root.val);
+                root=root.right;
+            }else root=stack.pop().left;
+        }
+        Collections.reverse(list);
+        return list;
+    }
+    public int candy(int[] ratings) {
+        int i=0;
+        int result=0;
+        int[] nums = new int[ratings.length];
+        int[] nums1 = new int[ratings.length];
+        nums[0]=1;
+        for(i=1;i<ratings.length;i++){
+            if(ratings[i]>ratings[i-1]) nums[i]=nums[i-1]+1;
+            else nums[i]=1;
+        }
+        nums1[ratings.length-1]=1;
+        for(i=ratings.length-2;i>=0;i--){
+            if(ratings[i]>ratings[i+1]) nums1[i]=nums[i+1]+1;
+            else nums1[i]=1;
+        }
+        for(i=0;i<ratings.length;i++){
+            result += Math.max(nums[i],nums1[i]);
+        }
+        return result;
+    }
+    public int searchInsert(int[] nums, int target) {
+        int left=0;
+        int right=nums.length-1;
+        while(right!=left){
+            if(target>nums[(right+left)/2])
+                left=(right+left)/2+1;
+             else if(target<nums[(right+left)/2])
+                right=(right+left)/2-1;
+            if (target==nums[(right+left)/2])
+                return (right+left)/2;
+        }
+        return left;
+    }
+
+    public String decodeString(String s) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i)<='9' && s.charAt(i)>='0'){
+                int j=i;
+                int n=0;
+                while(j<s.length()){
+                    if(s.charAt(j)=='[')
+                        n++;
+                    if(s.charAt(j)==']')
+                        n--;
+                    if(n==0)
+                        break;
+                    j++;
+                }
+                String tmp = decodeString(s.substring(i,j));
+                for(j=0;j<s.charAt(i);j++)
+                    stringBuilder.append(tmp);
+            }else
+                stringBuilder.append(s.indexOf(i));
+        }
+        return stringBuilder.toString();
+    }
+
     public int subarraysDivByK(int[] A, int K) {
         Map<Integer, Integer> record = new HashMap<>();
         record.put(0, 1);
@@ -413,4 +486,10 @@ class Foo {
         while (true)
             printThird.run();
     }
+}
+class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
 }
