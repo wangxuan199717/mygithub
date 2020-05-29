@@ -2,7 +2,25 @@ package com.leetcode.medium;
 
 import java.util.*;
 
+class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) { val = x; }
+ }
 public class Medium {
+    public ListNode rotateRight(ListNode head, int k) {
+        ListNode root= head;
+        int num=0;
+        while(head.next!=null) {head=head.next; num++;}
+        head.next=root;
+        k=num-k%num;
+        while(k--!=0){
+            root=root.next;
+        }
+        ListNode listNode = root.next;
+        root.next=null;
+        return listNode;
+    }
     public List<Integer> postorderTraversal(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> list = new ArrayList<>();
