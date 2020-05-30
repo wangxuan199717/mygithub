@@ -8,6 +8,45 @@ class ListNode {
       ListNode(int x) { val = x; }
  }
 public class Medium {
+    public boolean canJump(int[] nums) {
+        int distance=nums[0];
+        int i=0;
+        while(i<distance){
+            if(nums[i]+i>distance)
+                distance=nums[i]+i;
+        }
+        return distance>=nums.length;
+    }
+    public void setZeroes(int[][] matrix) {
+        int MODIFIED = -1000000;
+        int R = matrix.length;
+        int C = matrix[0].length;
+
+        for (int r = 0; r < R; r++) {
+            for (int c = 0; c < C; c++) {
+                if (matrix[r][c] == 0) {
+                    for (int k = 0; k < C; k++) {
+                        if (matrix[r][k] != 0) {
+                            matrix[r][k] = MODIFIED;
+                        }
+                    }
+                    for (int k = 0; k < R; k++) {
+                        if (matrix[k][c] != 0) {
+                            matrix[k][c] = MODIFIED;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int r = 0; r < R; r++) {
+            for (int c = 0; c < C; c++) {
+                if (matrix[r][c] == MODIFIED) {
+                    matrix[r][c] = 0;
+                }
+            }
+        }
+    }
     public ListNode rotateRight(ListNode head, int k) {
         ListNode root= head;
         int num=0;
