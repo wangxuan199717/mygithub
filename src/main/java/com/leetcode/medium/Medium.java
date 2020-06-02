@@ -8,6 +8,37 @@ class ListNode {
       ListNode(int x) { val = x; }
  }
 public class Medium {
+
+    public boolean isHappy(int n) {
+        int result=0;
+        while(true){
+
+        }
+    }
+    public List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        int max=0;
+        List<Boolean> booleans = new ArrayList<>();
+        for(int i=0;i<candies.length;i++){
+            if(candies[i]>max)
+                max=candies[i];
+            candies[i]+=extraCandies;
+        }
+        for(int i=0;i<candies.length;i++)
+            booleans.add(i,candies[i]>=max);
+        return booleans;
+    }
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        for(int i = len - 1; i >= 0; i--) {
+            digits[i]++;
+            digits[i] %= 10;
+            if(digits[i]!=0)
+                return digits;
+        }
+        digits = new int[len + 1];
+        digits[0] = 1;
+        return digits;
+    }
     public boolean canJump(int[] nums) {
         int distance=nums[0];
         int i=0;
