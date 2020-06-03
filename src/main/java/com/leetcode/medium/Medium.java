@@ -8,7 +8,36 @@ class ListNode {
       ListNode(int x) { val = x; }
  }
 public class Medium {
+    public int numDecodings(String s) {
+        int len = s.length();
+        int[] dp = new int[len];
+        char[] charArray = s.toCharArray();
 
+        if (len == 0 ||charArray[0] == '0' )   return 0;
+
+        dp[0] = 1;
+
+        for (int i = 1; i < len; i++) {
+            if (charArray[i] != '0')
+                dp[i] = dp[i - 1];
+            int num = 10 * (charArray[i - 1] - '0') + (charArray[i] - '0');
+            if (num >= 10 && num <= 26)
+                if (i == 1)     dp[i]++;
+                else    dp[i] += dp[i - 2];
+        }
+        return dp[len - 1];
+    }
+
+    public int maxProfit(int[] prices) {
+        int max=0;
+        int max1=prices[prices.length-1];
+        for(int i=prices.length-2;i>=0;i--){
+            max=max1-prices[i]>max?max1-prices[i]:max;
+            if(prices[i]>max1)
+                max1=prices[i];
+        }
+        return max;
+    }
     public boolean isHappy(int n) {
         int result=0;
         while(true){
