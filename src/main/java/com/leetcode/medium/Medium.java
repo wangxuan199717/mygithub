@@ -8,6 +8,112 @@ class ListNode {
       ListNode(int x) { val = x; }
  }
 public class Medium {
+    public List<List<Integer>> generate1(int numRows){
+        List<List<Integer>> triangle = new ArrayList<List<Integer>>();
+
+        if (numRows == 0) {
+            return triangle;
+        }
+
+        triangle.add(new ArrayList<>());
+        triangle.get(0).add(1);
+
+        for (int rowNum = 1; rowNum < numRows; rowNum++) {
+            List<Integer> row = new ArrayList<>();
+            List<Integer> prevRow = triangle.get(rowNum-1);
+
+            row.add(1);
+
+            for (int j = 1; j < rowNum; j++) {
+                row.add(prevRow.get(j-1) + prevRow.get(j));
+            }
+
+            row.add(1);
+
+            triangle.add(row);
+        }
+
+        return triangle;
+    }
+    public List<List<Integer>> generate(int numRows) {
+        List<Integer> list = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
+
+        list.add(1);
+        result.add(list);
+        if(numRows==1){
+            return result;
+        }
+        list.add(1);
+        result.add(list);
+        if(numRows==2){
+            return result;
+        }
+
+        for(int i=3;i<numRows;i++){
+            list=result.get(i-1);
+            List<Integer> temp = new ArrayList<>();
+            temp.add(1);
+            for(int j=0;j<i;j++){
+                temp.add(list.get(j)+list.get(j+1));
+            }
+            result.add(temp);
+        }
+        return result;
+    }
+    public String removeDuplicates1(String S) {
+        StringBuilder sb = new StringBuilder();
+        int sbLength = 0;
+        for (char character : S.toCharArray()) {
+            if (sbLength != 0 && character == sb.charAt(sbLength - 1))
+                sb.deleteCharAt(sbLength-- - 1);
+            else {
+                sb.append(character);
+                sbLength++;
+            }
+        }
+        return sb.toString();
+    }
+    public String removeDuplicates(String S) {
+        int top=0;
+        char[] stack = S.toCharArray();
+        for(int i=0;i<S.length();i++){
+            if(top>=1 && stack[top-1]==S.charAt(i)){
+                top-=2;
+            }
+            stack[top++]=S.charAt(i);
+        }
+        return new String(stack);
+    }
+    public int[] productExceptSelf1(int[] nums) {
+        int length = nums.length;
+        int[] answer = new int[length];
+
+        answer[0] = 1;
+        for (int i = 1; i < length; i++) {
+            answer[i] = nums[i - 1] * answer[i - 1];
+        }
+        int R = 1;
+        for (int i = length - 1; i >= 0; i--) {
+            answer[i] = answer[i] * R;
+            R *= nums[i];
+        }
+        return answer;
+    }
+    public int[] productExceptSelf(int[] nums) {
+        int[] left = new int[nums.length];
+        int[] right = new int[nums.length];
+        left[0]=1;
+        right[nums.length-1]=1;
+        for(int i=1;i<nums.length;i++){
+            left[i]*=nums[i-1];
+            right[nums.length-i-1]*=nums[nums.length-i-1];
+        }
+        for(int i=0;i<nums.length;i++){
+            nums[i]=left[i]*right[i];
+        }
+        return nums;
+    }
     public int numDecodings(String s) {
         int len = s.length();
         int[] dp = new int[len];
