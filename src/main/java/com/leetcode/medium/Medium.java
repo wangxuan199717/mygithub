@@ -1,5 +1,7 @@
 package com.leetcode.medium;
 
+import com.sun.source.tree.Tree;
+
 import java.util.*;
 
 class ListNode {
@@ -7,7 +9,92 @@ class ListNode {
       ListNode next;
       ListNode(int x) { val = x; }
  }
+ class TreeNode1 {
+     int val;
+     TreeNode left;
+     TreeNode right;
+
+     TreeNode1() {
+     }
+
+     TreeNode1(int val) {
+         this.val = val;
+     }
+
+     TreeNode1(int val, TreeNode left, TreeNode right) {
+         this.val = val;
+         this.left = left;
+         this.right = right;
+     }
+ }
 public class Medium {
+    private TreeNode pre = null;
+    public void flatten(TreeNode root) {
+        if(root!=null){
+            flatten(root.right);
+            flatten(root.left);
+            root.right=pre;
+            root.left=null;
+            pre = root;
+        }
+    }
+    public int[] spiralOrder1(int[][] matrix) {
+        if(matrix.length == 0) return new int[0];
+        int l = 0, r = matrix[0].length - 1, t = 0, b = matrix.length - 1, x = 0;
+        int[] res = new int[(r + 1) * (b + 1)];
+        while(true) {
+            for(int i = l; i <= r; i++) res[x++] = matrix[t][i]; // left to right.
+            if(++t > b) break;
+            for(int i = t; i <= b; i++) res[x++] = matrix[i][r]; // top to bottom.
+            if(l > --r) break;
+            for(int i = r; i >= l; i--) res[x++] = matrix[b][i]; // right to left.
+            if(t > --b) break;
+            for(int i = b; i >= t; i--) res[x++] = matrix[i][l]; // bottom to top.
+            if(++l > r) break;
+        }
+        return res;
+    }
+    public int[] spiralOrder(int[][] matrix) {
+        int[][] dir={
+                {0,1},
+                {0,-1},
+                {1,0},
+                {-1,0}
+        };
+        int direction=0;
+        int posx=0;
+        int posy=0;
+        int width = matrix.length;
+        int height = matrix[0].length;
+        int[] result = new int[width*height];
+
+        for(int i=0;i<width*height;i++){
+
+            result[i]=matrix[posy][posx];
+            matrix[posy][posx]=Integer.MIN_VALUE;
+            posx+=dir[direction][0];
+            posy+=dir[direction][1];
+            if(matrix[posx][posy]==Integer.MIN_VALUE){
+                if(direction==0){
+                    direction=1;
+                    continue;
+                }
+                if(direction==1){
+                    direction=2;
+                    continue;
+                }
+                if(direction==2){
+                    direction=3;
+                    continue;
+                }
+                if(direction==3){
+                    direction=0;
+                    continue;
+                }
+            }
+        }
+        return result;
+    }
     public List<List<Integer>> generate1(int numRows){
         List<List<Integer>> triangle = new ArrayList<List<Integer>>();
 
