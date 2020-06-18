@@ -28,6 +28,41 @@ class ListNode {
      }
  }
 public class Medium {
+    public TreeNode recoverFromPreorder(String S) {
+        int num = 0;
+        List<TreeNode> pre = new ArrayList<>();
+        TreeNode root = new TreeNode(S.charAt(0)-48);
+        pre.add(root);
+        for(int i=1;i<S.length();i++){
+            if(S.charAt(i)=='-') num++;
+            else {
+                TreeNode tmp = pre.get(num-1);
+                TreeNode tmp1 = new TreeNode(S.charAt(i)-48);
+                if(tmp.left==null) {
+                    tmp.left = tmp1;
+                    pre.add(tmp1);
+                }
+                else {
+                    tmp.right = tmp1;
+                    pre.set(num,tmp1);
+                }
+                num=0;
+            }
+        }
+        return root;
+    }
+    public int getResult(int n){
+        int result = 1;
+        while(n>0){
+            result *= n;
+            n--;
+        }
+        return result;
+    }
+    public int uniquePaths(int m, int n) {
+        int result = getResult(m)/getResult(n-1);
+        return result+m;
+    }
     public int minimumTotal(List<List<Integer>> triangle) {
         if (triangle == null || triangle.size() == 0) return 0;
 
