@@ -8,9 +8,34 @@ import java.util.Date;
  * @author : wangxuan
  * @date : 10:49 2020/6/19 0019
  */
+
+class sutdent{
+    public String name;
+}
 public class Main {
+
+    public void change(int a){
+        a=5;
+    }
+    public void change(sutdent sutdent){
+        sutdent.name = "wangxuan";
+    }
+    public void change(String name){
+        name = "wangxuan";
+    }
     public static void main(String[] args) {
 
+        int a = 7;
+        Main main = new Main();
+        main.change(a);
+        System.out.println(a);
+        sutdent s = new sutdent();
+        s.name="lisi";
+        main.change(s);
+        System.out.println(s.name);
+        String  name = "ha";
+        main.change(name);
+        System.out.println(name);
 //        Outer.method().show();
 ////        Outer.Inner inner = new Outer().new Inner("wang");
 ////        inner.show();
@@ -20,11 +45,9 @@ public class Main {
 ////        new Thread(() -> {
 ////            System.out.println("ja");
 ////        });
-        new user(()->{
-            System.out.println("running");
-        }).Start();
-
-
+//        new user(()->{
+//            System.out.println("running");
+//        }).Start();
     }
 }
 class user{
