@@ -1,7 +1,4 @@
 package com.leetcode.medium;
-
-import com.sun.source.tree.Tree;
-
 import java.util.*;
 
 class ListNode {
@@ -27,6 +24,509 @@ class ListNode {
          this.right = right;
      }
  }
+class Solution {
+    public List<List<Integer>> res = new LinkedList();
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+//        solution.combinationSum(new int[]{8,7,4,3},11);
+//        solution.permute(new int[]{1,2,3,4});
+        solution.getPermutation(4,9);
+        solution.removeDuplicatesk(new int[]{1,2,2,3,3,3,3,4,4,4,4,4,5},3);
+        solution.divide1(100,3);
+        solution.searchRange(new int[]{1,2,3,4,6,6,6,8,8,8},6);
+        solution.largestRectangleArea(new int[]{2,1,5,6,2,3});
+        solution.largestRectangleArea1(new int[]{2,1,5,6,2,3});
+        solution.addBinary("111","110");
+        //solution.maxSlidingWindow(new int[]{1,3,-1,-3,5,3,6,7},3);
+        solution.singleNumber(new int[]{1,1,2,2,3,3,4});
+
+        ListNode head = new ListNode(9);
+        head.next = new ListNode(7);
+        head.next.next = new ListNode(10);
+        solution.insertionSortList(head);
+
+        solution.moveZeroes(new int[]{0,0,1,0,2,3,4});
+        solution.minEatingSpeed(new int[]{3,6,7,11},8);
+        solution.asteroidCollision(new int[]{1,-1,-2,-2});
+
+        solution.numRabbits1(new int[]{2,2,2,3,3,3,3,3});
+        int tri = solution.tribonacci(25);
+    }
+
+    public int tribonacci(int n) {
+        if(n==0 || n==1) return n;
+        if(n==2) return 1;
+        return tribonacci(n-1)+tribonacci(n-2)+tribonacci(n-3);
+    }
+
+    public int numRabbits1(int[] answers) {
+        int[] count = new int[1000];
+        for (int x: answers) count[x]++;
+
+        int ans = 0;
+        for (int k = 0; k < 1000; ++k)
+            ans += Math.floorMod(-count[k], k+1) + count[k];
+        return ans;
+    }
+
+    public int numRabbits(int[] answers) {
+        int result = 0;
+        HashMap<Integer,Integer> hashMap = new HashMap<>();
+        for(int i=0;i<answers.length;i++)
+            hashMap.put(answers[i],hashMap.get(answers[i])==null?1:(hashMap.get(answers[i])+1));
+        for(int i=0;i<hashMap.size();i++){
+            result += hashMap.get(answers[i])/(answers[i]+1) * (answers[i]+1);
+            result += hashMap.get(answers[i])%(answers[i]+1)==0?0:hashMap.get(answers[i])%(answers[i]+1);
+        }
+        return result;
+    }
+
+    public int[] asteroidCollision(int[] asteroids) {
+        if(asteroids==null) return null;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(asteroids[0]);
+        for(int i=1;i<asteroids.length;i++){
+            boolean flag =false;
+            if(stack.empty() || asteroids[i]>0 || asteroids[i]*stack.peek()>0 || asteroids[i]>0 && stack.peek()<0)
+                stack.push(asteroids[i]);
+            while(!stack.empty() && asteroids[i]<0 && stack.peek()>0){
+                if(stack.peek()>Math.abs(asteroids[i])){
+                    flag = false;
+                    break;
+                }
+                if(stack.peek()<Math.abs(asteroids[i])){
+                    stack.pop();
+                    flag = true;
+                    continue;
+                }
+                if(stack.peek()==Math.abs(asteroids[i])){
+                    stack.pop();
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag) stack.push(asteroids[i]);
+        }
+        return stack.stream().mapToInt(Integer::valueOf).toArray();
+    }
+
+
+    public int minEatingSpeed(int[] piles, int H) {
+        int maxVal = 1;
+        for (int pile : piles)
+            maxVal = Math.max(maxVal, pile);
+        int left = 1;
+        int right = maxVal;
+        while (left < right) {
+            int mid = (left + right) >> 1;
+            if (canEat(piles, mid, H))
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        return left;
+    }
+
+    private boolean canEat(int[] piles, int speed, int H) {
+        int sum = 0;
+        for (int pile : piles)
+            sum += Math.ceil(pile * 1.0 / speed);
+        return sum > H;
+    }
+
+    public int minEatingSpeed1(int[] piles, int H) {
+        Arrays.sort(piles);
+        int minspeed=1;
+        int left=0;
+        int right = piles.length-1;
+        int mid = (right-left)/2;
+
+        while(right>left){
+            int time=mid;
+            minspeed = piles[mid];
+            for(int i=mid+1;i<piles.length;i++)
+                time+=piles[i]%minspeed==0?piles[i]/minspeed:piles[i]/minspeed+1;
+            if(H==time) return minspeed;
+            if(H>time) right = mid;
+            if(H<time) left = +1;
+        }
+        return minspeed;
+    }
+
+    public int primePalindrome(int N) {
+        while (true) {
+            N = getNextPalindrome(N); // 获取>=N的回文数
+            if(isPrime(N)) return N; // 判断是不是素数
+            N++;
+        }
+    }
+
+    // 获取下一个>=n的回文数
+    private int getNextPalindrome(int n) {
+        char[] s = String.valueOf(n).toCharArray();
+        int mid = s.length/2;
+        while (true) {
+            // 制造回文数：把前半段翻转一下复制到后半段
+            for (int i = 0; i < mid; i++) {
+                s[s.length -1 - i] = s[i];
+            }
+            // 判断制造出来的数是否>=n
+            int tmp = Integer.valueOf(String.valueOf(s));
+            if (tmp >= n) return tmp; // 如果>=n，返回这个造出来的数
+                // 如果比n小，那前半段+1
+            else {
+                int j = s.length % 2 == 1? mid: mid-1; // 如果是奇数长度，最靠近中轴的是s[mid]；如果是偶数长度，最靠近中轴的是s[mid-1]
+                // 有9要进位（不用考虑999xxx这样首位要进位的，因为999999这个回文数肯定>=所有999xxx形式的n）
+                while (s[j] == '9'){
+                    s[j--] = '0';
+                }
+                s[j]++;
+            }
+        }
+    }
+
+    // 判断是否是素数
+    private boolean isPrime(int num){
+        // 一般从2找到n/2，判断是否能被整除。从5开始，n/2>√n，这样可以减少运算量。
+        if(num <= 5) {
+            return num == 2 || num == 3 || num == 5;
+        }
+
+        // 从2找到√num
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if(num % i == 0) return false;
+        }
+        return true;
+    }
+
+    public void moveZeroes(int[] nums) {
+        if(nums.length==1 || nums.length==0) return;
+        int zero=0;
+        int nonezero=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]==0)
+                zero++;
+            else
+                nums[nonezero++]=nums[i];
+        }
+        for(int i=0;i<zero;i++)
+            nums[nums.length-i-1]=0;
+    }
+
+    public ListNode insertionSortList(ListNode head) {
+        if(head==null) return null;
+        if(head.next==null) return head;
+
+        ListNode sorted = null;
+        while(head!=null){
+            if(sorted==null){
+                sorted = new ListNode(head.val);
+                sorted.next = null;
+                head = head.next;
+                continue;
+            }
+            ListNode temp = sorted;
+            ListNode pre = sorted;
+            ListNode x = new ListNode(head.val);
+            while(temp!=null && temp.val<head.val){
+                pre = temp;
+                temp = temp.next;
+            }
+            if(temp == sorted){
+                x.next = sorted;
+                sorted = x;
+            }else {
+                pre.next = x;
+                x.next = temp;
+            }
+            head = head.next;
+        }
+        return sorted;
+    }
+    public int singleNumber(int[] nums) {
+        if(nums.length<=1)
+            return nums[0];
+        for(int i=1;i<nums.length;i++)
+            nums[0] = nums[0]^nums[i];
+        return nums[0];
+    }
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        if(nums.length==0) return new int[1];
+        int[] result = new int[nums.length];
+
+        int[] queue = new int[nums.length];
+        queue[0]=nums[0];
+        int head=0;
+        int rear=1;
+
+        for(int i=1;i<k;i++){
+            //if()
+        }
+        for(int i=0;i<nums.length;i++){
+            //if(i!=0)
+        }
+        return null;
+    }
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        backtrack(candidates,0,target,new LinkedList<>());
+        return res;
+    }
+    private void backtrack(int[] candidates, int start,int target, LinkedList<Integer> track) {
+        if(target<0)
+            return;
+        if (target == 0){
+            res.add(new LinkedList<>(track));
+            return;
+        }
+        for(int i = start;i < candidates.length;i++){
+            if(target < candidates[i]) continue;
+            track.add(candidates[i]);
+            backtrack(candidates,i,target-candidates[i],track);
+            track.removeLast();
+        }
+    }
+
+    public List<List<Integer>> result = new ArrayList<>();
+    public List<List<Integer>> permute(int[] nums) {
+        permute_num(nums,new LinkedList<>());
+        return result;
+    }
+    public void permute_num(int[] nums,LinkedList<Integer> path){
+        if (path.size() == nums.length) {
+            result.add(new LinkedList(path));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (path.contains(nums[i])) continue;
+            path.add(nums[i]);
+            permute_num(nums, path);
+            path.removeLast();
+        }
+    }
+
+
+    public String getPermutation(int n, int k) {
+        int[] factorials = new int[n];
+        List<Integer> nums = new ArrayList() {{add(1);}};
+
+        factorials[0] = 1;
+        for(int i = 1; i < n; ++i) {
+            factorials[i] = factorials[i - 1] * i;
+            nums.add(i + 1);
+        }
+        --k;
+        StringBuilder sb = new StringBuilder();
+        for (int i = n - 1; i > -1; --i) {
+            int idx = k / factorials[i];
+            k -= idx * factorials[i];
+
+            sb.append(nums.get(idx));
+            nums.remove(idx);
+        }
+        return sb.toString();
+    }
+    public int removeDuplicatesk(int[] nums,int k) {
+        int index=k-1;
+        for(int i=k;i<nums.length;i++){
+            if(nums[i]!=nums[index-k+1]){
+                index++;
+                nums[index]=nums[i];
+            }
+        }
+        return index+1;
+    }
+    public int removeDuplicates(int[] nums) {
+        int index=1;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]!=nums[index-1]){
+                index++;
+                nums[index]=nums[i];
+            }
+        }
+        return index;
+    }
+    public int divide(int dividend, int divisor) {
+        boolean flag =false;
+        if(dividend>0 && divisor>0 || dividend<0 && divisor<0) flag =true;
+        dividend = Math.abs(dividend);
+        divisor = Math.abs(divisor);
+
+        int result=0;
+        int s=1;
+        while(dividend>divisor){
+            if(dividend>divisor*s)
+            {
+                dividend -= divisor*s;
+                result+=s;
+                s++;
+            }else {
+                s--;
+            }
+        }
+        return flag?result:-result;
+    }
+    public int divide1(int dividend, int divisor) {
+        int result=0;
+        boolean flag = dividend>0 ^ divisor>0;
+        dividend = dividend>0?dividend:-dividend;
+        divisor = divisor>0?divisor:-divisor;
+
+        while(dividend>divisor){
+            int temp_divisor=divisor;
+            int temp_result=1;
+            while(dividend>=(temp_divisor<<1)){
+                temp_divisor = temp_divisor<<1;
+                temp_result = temp_result<<1;
+            }
+            dividend-=temp_divisor;
+            result+=temp_result;
+        }
+        return flag?result:-result;
+    }
+    public int[] searchRange(int[] nums, int target) {
+        int[] result = new int[]{-1,-1};
+        int start=0;
+        int end=nums.length-1;
+        while(start<end){
+            int mid = (end-start)/2;
+            if(target == nums[mid]){
+                while(nums[mid--]==target);
+                result[0]=mid;
+                while(nums[mid++]==target);
+                result[1]=mid;
+                return result;
+            }
+            if(target > nums[mid]) start=mid-1;
+            if(target <nums[mid]) end= mid+1;
+        }
+        return result;
+    }
+    public int[] searchRange1(int[] nums, int target) {
+        int l =0,r = nums.length-1;
+        while(l <= r){
+            int mid = l +(r-l)/2;
+            if(nums[mid] > target) r = mid-1;
+            if(nums[mid] < target) l = mid+1;
+            if(nums[mid] == target){
+                l = mid;
+                r = mid;
+                while(r+1<nums.length && nums[r+1] == target) r++;
+                while(l-1>=0 && nums[l-1] == target) l--;
+                return new int[]{l,r};
+            }
+        }
+        return new int[]{-1,-1};
+    }
+    List<List<String>>  Queues = new ArrayList<>();
+    public boolean isAvliable(int n,List<String> broad,int x,int y){
+        return false;
+    }
+    public void Queue(int n,List<String> broad,int n1){
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int i=0;i<n;i++){
+            stringBuffer.replace(i,i,"Q");
+            broad.add(stringBuffer.toString());
+            if(isAvliable(n,broad,i,n1)){
+                if(n1+1==n)
+                    Queues.add(broad);
+                Queue(n,broad,n1+1);
+            }
+            broad.get(i).replace("Q",".");
+        }
+    }
+    public List<List<String>> solveNQueens(int n) {
+        Queue(n,new ArrayList<>(),0);
+        return Queues;
+    }
+    public int getMin(int[] heights,int start,int end){
+        int min =Integer.MAX_VALUE;
+        for(int i=start;i<end;i++){
+            if(heights[i]<=min)
+                min=heights[i];
+        }
+        return min==Integer.MAX_VALUE?heights[start]:min;
+    }
+    public int largestRectangleArea(int[] heights) {
+        int result=heights[0];
+        int[] min = new int[heights.length];
+        min[0]=heights[0];
+
+        for(int i=1;i<heights.length;i++){
+            for(int j=i;j>0;j--){
+                if(getMin(heights,j,i)*(i-j)>result)
+                    result=getMin(heights,j,i)*(i-j);
+            }
+        }
+        return result;
+    }
+    public int largestRectangleArea1(int[] heights) {
+        int[] front = new int[heights.length];
+        int[] back  = new int[heights.length];
+        Stack<Integer> stack = new Stack<>();
+        Stack<Integer> stack1 = new Stack<>();
+
+        for(int i=0;i<heights.length;i++){
+            if(stack.isEmpty()){
+                front[i]=0;
+                stack.push(i);
+            }else {
+                int top=-1;
+                while(!stack.isEmpty() && (heights[top=stack.pop()])>=heights[i]);
+                stack.push(top);
+                if(stack.isEmpty()) front[i]=0;
+                else front[i]=top;
+                stack.push(i);
+            }
+
+            if(stack1.isEmpty()){
+                back[heights.length-1-i]=heights.length-1;
+                stack1.push(heights.length-1-i);
+            }else {
+                int top=-1;
+                while(!stack1.isEmpty() && (heights[top=stack1.pop()])>=heights[heights.length-1-i]);
+                stack1.push(top);
+                if(stack1.isEmpty()) back[heights.length-1-i]=0;
+                else back[heights.length-1-i]=top;
+                stack1.push(heights.length-1-i);
+            }
+        }
+
+        int result=-1;
+        for(int i=0;i<heights.length;i++){
+            if(Math.abs(back[i]-front[i])*heights[i]>result)
+                result = Math.abs(back[i]-front[i])*heights[i];
+        }
+        return result;
+    }
+    public int firstMissingPositive(int[] nums) {
+        int result=1;
+
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>nums.length-1 || nums[i]<=0) nums[i]=-1;
+            else {
+                int temp=nums[nums[i]-1];
+                nums[nums[i]-1]=nums[i];
+                nums[i]=temp;
+            }
+        }
+        return result;
+    }
+    public int convey(String num){
+        int result=0;
+        int x=1;
+        for(int i=0;i<num.length();i++){
+            if(num.charAt(num.length()-i-1)=='1')
+                result+=x;
+            x*=2;
+        }
+        return result;
+    }
+    public int addBinary(String a, String b) {
+        return convey(a)+convey(b);
+    }
+}
 public class Medium {
     public TreeNode recoverFromPreorder(String S) {
         int num = 0;
